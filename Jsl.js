@@ -199,11 +199,11 @@ module.exports = Jsl = async (Jsl, m, chatUpdate, store) => {
 	
 	//group target \\
 const reply = (teks) => {
-            Jsl.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": `ɢɪᴛʜᴜʙ`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`jsl.jpg`),"sourceUrl": "https://github.com/Afx-Abu/Alena-MD"}}}, { quoted: m})
+            Jsl.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": `ғᴏʟʟᴏᴡ ɢɪᴛʜᴜʙ`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`jsl.jpg`),"sourceUrl": "https://github.com/Afx-Abu/Alena-MD"}}}, { quoted: m})
         }
         
         const replay = (teks) => {
-            Jsl.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": `ɢɪᴛʜᴜʙ`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`jsl.jpg`),"sourceUrl": "https://github.com/Afx-Abu/Alena-MD"}}}, { quoted: m})
+            Jsl.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": `ғᴏʟʟᴏᴡ ɢɪᴛʜᴜʙ`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`jsl.jpg`),"sourceUrl": "https://github.com/Afx-Abu/Alena-MD"}}}, { quoted: m})
         }
 	
         //Public & Self\\
@@ -261,9 +261,9 @@ const reply = (teks) => {
 					Jsl.sendMessage(m.chat, { sticker: result }, { quoted: m })
 					}
 			}
-			for (let anju of vien){
-				if (budy === anju){
-					result = fs.readFileSync(`./media/vn/${anju}.mp3`)
+			for (let jsl of vien){
+				if (budy === jsl){
+					result = fs.readFileSync(`./media/vn/${jsl}.mp3`)
 					Jsl.sendMessage(m.chat, { audio: result, mimetype: 'audio/mp4', ptt: true }, { quoted: m })     
 					}
 			}
@@ -287,8 +287,8 @@ const reply = (teks) => {
         
         //media detect \\
 		const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
-		const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
 		const isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
+		const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')		
 		const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
         
         //Respon Cmd with media\\
@@ -1798,15 +1798,32 @@ break
             reply(mess.wait)
                     if (/image/.test(mime)) {
                 let media = await quoted.download()
-                let encmedia = await Jsl.sendImageAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
+                let encmedia = await Jsl.sendImageAsSticker(m.chat, media, m, { packname: global.packname })
                 await fs.unlinkSync(encmedia)
             } else if (/video/.test(mime)) {
                 if ((quoted.msg || quoted).seconds > 11) return reply('Maximum 10 Seconds!')
                 let media = await quoted.download()
-                let encmedia = await Jsl.sendVideoAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
+                let encmedia = await Jsl.sendVideoAsSticker(m.chat, media, m, { packname: global.packname })
                 await fs.unlinkSync(encmedia)
             } else {
                 reply(`Send Image/Video With Caption ${prefix + command}\nVideo Duration 1-9 Seconds`)
+                }
+            }
+            break
+case 'take': {
+            if (!quoted) return replay(`Reply Video/Image With Caption ${prefix + command}`)
+            reply(mess.wait)
+                    if (/image/.test(mime)) {
+                let media = await quoted.download()
+                let encmedia = await Jsl.sendImageAsSticker(m.chat, media, m, { packname: global.packname })
+                await fs.unlinkSync(encmedia)
+            } else if (/video/.test(mime)) {
+                if ((quoted.msg || quoted).seconds > 11) return reply('Maximum 10 Seconds!')
+                let media = await quoted.download()
+                let encmedia = await Jsl.sendVideoAsSticker(m.chat, media, m, { packname: global.packname })
+                await fs.unlinkSync(encmedia)
+            } else {
+                reply(`Send Image/Video ${prefix + command}\nVideo Duration 1-9 Seconds`)
                 }
             }
             break
@@ -1819,7 +1836,7 @@ reply(mess.wait)
 mee = await Jsl.downloadAndSaveMediaMessage(quoted)
 mem = await TelegraPh(mee)
 meme = `https://api.memegen.link/images/custom/-/${text}.png?background=${mem}`
-memek = await Jsl.sendImageAsSticker(m.chat, meme, m, { packname: global.packname, author: global.author })
+memek = await Jsl.sendImageAsSticker(m.chat, meme, m, { packname: global.packname })
 await fs.unlinkSync(memek)
 }
 break
@@ -1844,12 +1861,12 @@ break
 		let [emoji1, emoji2] = text.split`+`
 		let anu = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji1)}_${encodeURIComponent(emoji2)}`)
 		for (let res of anu.results) {
-		    let encmedia = await Jsl.sendImageAsSticker(m.chat, res.url, m, { packname: global.packname, author: global.author, categories: res.tags })
+		    let encmedia = await Jsl.sendImageAsSticker(m.chat, res.url, m, { packname: global.packname, categories: res.tags })
 		    await fs.unlinkSync(encmedia)
 		}
 	    }
 	    break
-            case 'toimage': case 'toimg': {
+            case 'photo': case 'toimg': {
                 if (!quoted) return reply(`Reply Image`)
                 if (!/webp/.test(mime)) reply(`Reply Sticker With Caption *${prefix + command}*`)
                 reply(mess.wait)
@@ -2027,10 +2044,6 @@ break
 │ 𒆜 ᴄʜᴀɴɴᴇʟ : ${anu.author.url}
 │ 𒆜 ᴅᴇsᴄʀɪᴘᴛɪᴏɴ : ${anu.description}
 │ 𒆜 ᴠɪᴅᴇᴏ ʟɪɴᴋ : ${anu.url}     
-╰───────────────┈⬡
-╭───────────────┈⬡
-│ 𝚄𝚂𝙴𝚁 :- ${pushname}
-│ 𝚃𝙸𝙼𝙴 :- ${moment.tz('Asia/Kolkata').f}
 ╰───────────────┈⬡`,
                     footer: Jsl.user.name,
                     buttons: buttons,
@@ -3187,7 +3200,7 @@ case 'cry':case 'kill':case 'hug':case 'pat':case 'lick':case 'kiss':case 'bite'
 					reply(mess.wait)
 					axios.get(`https://api.waifu.pics/sfw/${command}`)
 					.then(({data}) => {
-						Jsl.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname, author: global.author })
+						Jsl.sendImageAsSticker(m.chat, data.url, m, { packname: global.packname })
 					})
 					break
 				case 'waifu': case 'loli':
